@@ -1,34 +1,35 @@
-// import Board from '.Board';
-// import HumanPlayer from '.HumanPlayer';
-
 var readlineSync = require('readline-sync');
+var HumanPlayer = require('./HumanPlayer');
 
-function createGame() {
-  let playerOne = new HumanPlayer();
-  let playerTwo = new HumanPlayer();
-  let board = new Board(playerOne, playerTwo);
-  return new Game(playerOne, playerTwo, board);
-};
+// function createGame() {
+//   let playerOne = new HumanPlayer();
+//   let playerTwo = new HumanPlayer();
+//   let board = new Board(playerOne, playerTwo);
+//   return new Game(playerOne, playerTwo, board);
+// };
 
 class Game {
   constructor() {
-    this.playerOneName = '';
-    this.playerTwoName = '';
+    this.playerOne = '';
+    this.playerTwo = ''
   }
   
   getPlayerOneName() {
-    this.playerOneName = readlineSync.question('Player one, may I have your name? ');
-    console.log(`${this.playerOneName} is my name`)
+    let playerOneName = readlineSync.question('Player one, may I have your name? ');
+    this.playerOne = new HumanPlayer(playerOneName);
+  }
+
+  getPlayerTwoName() {
+    let playerTwoName = readlineSync.question('Player two, may I have your name? ');
+    this.playerTwo = new HumanPlayer(playerTwoName);
   }
 
   play() {
     //start prompt for game 
     console.log("Welcome to tic tac toe!")
     this.getPlayerOneName();
-  }
-
-  getPlayerTwoName() {
-    this.playerTwoName.readlineSync.question('Player two, can I have your name?')
+    this.getPlayerTwoName();
+    this.playerOne.getMove()
   }
 
 
