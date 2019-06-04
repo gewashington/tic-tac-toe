@@ -1,5 +1,3 @@
-import HumanPlayer from './HumanPlayer';
-
 function createBoard() {
   let playerOne = new HumanPlayer();
   let playerTwo = new HumanPlayer();
@@ -10,41 +8,38 @@ class Board {
   constructor(playerOne, playerTwo) {
     this.playerOne = playerOne;
     this.playerTwo = playerTwo;
-    boardGrid = [[1, 2, 3][4, 5, 6][7, 8, 9]];
+    this.boardGrid = [[1, 2, 3],[4, 5, 6],[7, 8, 9]];
+    this.error = '';
   }
 
   displayBoard() {
-    console.log('Board Grid', boardGrid);
+    console.log('Board Grid', this.boardGrid);
   }
 
-  validMove(player) {
+  validMove(playerInput) {
     /* 
     - Check if valid input
     - Check if the input has not been used already
     - Else, continue with 'makeMove
     */
     let isNumberInput = new RegExp(/^[1-9]$/)
-    return isNumberInput.test(player.getMove())
+    return isNumberInput.test(parseInt(playerInput));
   }
 
-  makeMove(player, playerInput) {
-    console.log('Make move');
+  makeMove(playerInput, playerSymbol) {
     //Take player input and replace spot on board with x or o based on input 
-    this.state.board.map((row) => {
-      if(row.includes(playerInput)) {
-
+    this.validMove(playerInput)
+    this.boardGrid.map((row, index) => {
+      if(row.includes(parseInt(playerInput))) {
+        let inputIndex = row.indexOf(parseInt(playerInput))
+        this.boardGrid[index][inputIndex] = 'x';
+        console.log(this.boardGrid)
       }
     })
   }
 
-  isGameOver(player) {
-    console.log('Game over?')
-    if (this.isVerticalWin()|| this.isHorizontalWin() || this.isDiagonalWin()) {
-      console.log(`${player.getName()} has won! Play again?`)
-    }
-    /*if board is full of letters but there is no win
-      log out the draw screen 
-    */
+  isGameOver() {
+    return this.isVerticalWin()|| this.isHorizontalWin() || this.isDiagonalWin() 
   }
 
   isVerticalWin() {
