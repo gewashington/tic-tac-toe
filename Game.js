@@ -40,6 +40,10 @@ class Game {
   takeTurns() {
     while(this.turnsRemaining > 0) {
       this.getCurrentPlayer().getMove();
+      if (!this.board.validMove(this.getCurrentPlayer().returnMove())) { 
+        console.log('Please enter a number on the board'); 
+        continue; 
+      }
       this.board.makeMove(this.getCurrentPlayer().returnMove(), this.getCurrentPlayer().playerSymbol)
       if(this.board.isWin()) {
         console.log('Winner')

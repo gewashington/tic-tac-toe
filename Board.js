@@ -22,13 +22,12 @@ class Board {
     - Check if the input has not been used already
     - Else, continue with 'makeMove
     */
-    let isNumberInput = new RegExp(/^[1-9]$/)
-    return isNumberInput.test(parseInt(playerInput));
+    let numberInputRegex = new RegExp(/^[1-9]$/)
+    return numberInputRegex.test(parseInt(playerInput));
   }
 
   makeMove(playerInput, playerSymbol) {
     //Take player input and replace spot on board with x or o based on input 
-    this.validMove(playerInput)
     this.boardGrid.map((row, index) => {
       if(row.includes(parseInt(playerInput))) {
         let inputIndex = row.indexOf(parseInt(playerInput))
