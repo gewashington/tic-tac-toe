@@ -14,11 +14,13 @@ class Game {
   getPlayerOne() {
     let playerOneName = readlineSync.question('Player one, may I have your name? ');
     this.playerOne = new HumanPlayer(playerOneName);
+    this.playerOne.playerSymbol = 'x'
   }
 
   getPlayerTwo() {
     let playerTwoName = readlineSync.question('Player two, may I have your name? ');
     this.playerTwo = new HumanPlayer(playerTwoName);
+    this.playerTwo.playerSymbol = 'o'
   }
 
   play() {
@@ -38,10 +40,21 @@ class Game {
   takeTurns() {
     while(this.turnsRemaining > 0) {
       this.getCurrentPlayer().getMove();
-      this.board.makeMove(this.getCurrentPlayer().returnMove())
-      this.turnsRemaining -= 1;
-      this.currentPlayer = !this.currentPlayer;
+      this.board.makeMove(this.getCurrentPlayer().returnMove(), this.getCurrentPlayer().playerSymbol)
+      if(this.board.isWin()) {
+        console.log('Winner')
+        break
+      }
+      else {
+        this.turnsRemaining -= 1;
+        this.currentPlayer = !this.currentPlayer;
+      }
+
     }
+  }
+
+  gameOver() {
+
   }
 }
 

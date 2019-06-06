@@ -32,21 +32,25 @@ class Board {
     this.boardGrid.map((row, index) => {
       if(row.includes(parseInt(playerInput))) {
         let inputIndex = row.indexOf(parseInt(playerInput))
-        this.boardGrid[index][inputIndex] = 'x';
+        this.boardGrid[index][inputIndex] = playerSymbol;
         console.log(this.boardGrid)
       }
     })
   }
 
-  isGameOver() {
-    return this.isVerticalWin()|| this.isHorizontalWin() || this.isDiagonalWin() 
+  isDraw() {
+    return this.boardGrid.forEach((row) => row.some(isNaN));
+  }
+
+  isWin() {
+    return this.isVerticalWin()|| this.isHorizontalWin() || this.isDiagonalWin(); 
   }
 
   isVerticalWin() {
     let column = [];
     let columnValuesMatch = false;
-    let currentBoard = this.state.board;
-    for (i = 0; i < currentBoard.length; i++) {
+    let currentBoard = this.boardGrid;
+    for (let i = 0; i < currentBoard.length; i++) {
       currentBoard.map((row) => {
         column.push(row[i])
       })
@@ -60,21 +64,24 @@ class Board {
   }
 
   isHorizontalWin() {
-    this.state.board.forEach((row) => {
-      return row.every((value) => value === row[0])
+    let horizontalMatch = false;
+    this.boardGrid.forEach((row) => {
+      let isRowMatch = row.every((value) => value === row[0]);
+      if (isRowMatch) { horizontalMatch = isRowMatch; return; }
     });
+    return horizontalMatch
   }
 
   isDiagonalWin() {
     let forwardDiagonal = []
     let reverseDiagonal = []
-    let currentBoard = this.state.board;
+    let currentBoard = this.boardGrid;
 
-    for (i = 0; i < currentBoard.length; i++) {
+    for (let i = 0; i < currentBoard.length; i++) {
       forwardDiagonal.push(currentBoard[i][i])
     }
 
-    for (i = 0; i < currentBoard.length; i++) {
+    for (let i = 0; i < currentBoard.length; i++) {
       reverseDiagonal.push(currentBoard[2 - i][i])
     }
 
