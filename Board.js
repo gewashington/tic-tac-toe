@@ -38,6 +38,7 @@ class Board {
   }
 
   isDraw() {
+    //For Each is not the correct function for this
     return this.boardGrid.forEach((row) => row.some(isNaN));
   }
 
@@ -54,7 +55,7 @@ class Board {
         column.push(row[i])
       })
       columnValuesMatch = column.every((value) => value === column[0])
-      if(columnValuesMatch) {
+      if (columnValuesMatch) {
         break;
       }
       column = [];
@@ -63,12 +64,9 @@ class Board {
   }
 
   isHorizontalWin() {
-    let horizontalMatch = false;
-    this.boardGrid.forEach((row) => {
-      let isRowMatch = row.every((value) => value === row[0]);
-      if (isRowMatch) { horizontalMatch = isRowMatch; return; }
-    });
-    return horizontalMatch
+    return this.boardGrid.map((row) => {
+      return row.every((value) => value === row[0]);
+    }).some((val) => val === true);
   }
 
   isDiagonalWin() {

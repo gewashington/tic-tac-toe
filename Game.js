@@ -37,6 +37,9 @@ class Game {
     return  this.currentPlayer ? this.playerOne : this.playerTwo;
   }
 
+  returnError() {
+    //use loop to return error and break when user enters correct input 
+  }
   takeTurns() {
     while(this.turnsRemaining > 0) {
       this.getCurrentPlayer().getMove();
