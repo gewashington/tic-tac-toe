@@ -1,3 +1,4 @@
+var readlineSync = require('readline-sync');
 function createBoard() {
   let playerOne = new HumanPlayer();
   let playerTwo = new HumanPlayer();
@@ -16,7 +17,7 @@ class Board {
     console.log('Board Grid', this.boardGrid);
   }
 
-  validMove(playerInput) {
+  isValidMove(playerInput) {
     /* 
     - Check if valid input
     - Check if the input has not been used already
@@ -28,9 +29,16 @@ class Board {
 
   makeMove(playerInput, playerSymbol) {
     //Take player input and replace spot on board with x or o based on input 
+    let input = playerInput;
+    while(!this.isValidMove(input)) {
+      input = readlineSync.question(`Please enter a number from 1-9`)
+      if(this.isValidMove(input)) {
+        break
+      }
+    }
     this.boardGrid.map((row, index) => {
-      if(row.includes(parseInt(playerInput))) {
-        let inputIndex = row.indexOf(parseInt(playerInput))
+      if(row.includes(parseInt(input))) {
+        let inputIndex = row.indexOf(parseInt(input))
         this.boardGrid[index][inputIndex] = playerSymbol;
         console.log(this.boardGrid)
       }
@@ -38,7 +46,6 @@ class Board {
   }
 
   isDraw() {
-    //For Each is not the correct function for this
     return this.boardGrid.forEach((row) => row.some(isNaN));
   }
 

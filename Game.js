@@ -34,29 +34,22 @@ class Game {
 
   getCurrentPlayer() {
     //Return current player
-    return  this.currentPlayer ? this.playerOne : this.playerTwo;
+    return this.currentPlayer ? this.playerOne : this.playerTwo;
   }
-
-  returnError() {
-    //use loop to return error and break when user enters correct input 
-  }
+  
   takeTurns() {
     while(this.turnsRemaining > 0) {
       this.getCurrentPlayer().getMove();
-      if (!this.board.validMove(this.getCurrentPlayer().returnMove())) { 
-        console.log('Please enter a number on the board'); 
-        continue; 
-      }
       this.board.makeMove(this.getCurrentPlayer().returnMove(), this.getCurrentPlayer().playerSymbol)
+      
       if(this.board.isWin()) {
-        console.log('Winner')
+        console.log(`${this.getCurrentPlayer().name} wins`)
         break
       }
       else {
         this.turnsRemaining -= 1;
         this.currentPlayer = !this.currentPlayer;
       }
-
     }
   }
 
