@@ -1,6 +1,6 @@
 var readlineSync = require('readline-sync');
 
-class HumanPlayer {
+class Player {
   constructor(name) {
     this.name = name;
     this.playerInput = '';
@@ -16,4 +16,4 @@ class HumanPlayer {
   }
 }
 
-module.exports = HumanPlayer;
+module.exports = Player;

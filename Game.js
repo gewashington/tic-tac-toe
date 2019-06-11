@@ -1,6 +1,6 @@
 var readlineSync = require('readline-sync');
 var Board = require('./Board');
-var HumanPlayer = require('./HumanPlayer');
+var Player = require('./Player');
 
 class Game {
   constructor() {
@@ -13,13 +13,13 @@ class Game {
   
   getPlayerOne() {
     let playerOneName = readlineSync.question('Player one, may I have your name? ');
-    this.playerOne = new HumanPlayer(playerOneName);
+    this.playerOne = new Player(playerOneName);
     this.playerOne.playerSymbol = 'x'
   }
 
   getPlayerTwo() {
     let playerTwoName = readlineSync.question('Player two, may I have your name? ');
-    this.playerTwo = new HumanPlayer(playerTwoName);
+    this.playerTwo = new Player(playerTwoName);
     this.playerTwo.playerSymbol = 'o'
   }
 
@@ -42,19 +42,33 @@ class Game {
       this.getCurrentPlayer().getMove();
       this.board.makeMove(this.getCurrentPlayer().returnMove(), this.getCurrentPlayer().playerSymbol)
       
-      if(this.board.isWin()) {
-        console.log(`${this.getCurrentPlayer().name} wins`)
+      if(this.gameOver()) {
         break
-      }
-      else {
-        this.turnsRemaining -= 1;
-        this.currentPlayer = !this.currentPlayer;
       }
     }
   }
 
   gameOver() {
+    if(this.turnsRemaining === 1 && !this.board.isWin()) {
+      console.log('Draw')
+      return true
+    }
 
+    if(this.board.isWin()) {
+      console.log(`${this.getCurrentPlayer().name} wins`)
+      return true
+    } 
+    
+    else {
+      this.turnsRemaining -= 1;
+      this.currentPlayer = !this.currentPlayer;
+      return false
+    }
+  }
+
+  replay() {
+    let willReplay = readlineSync.question('Would you like to play again? (Y / N)');
+    return willReplay === 'Y' ? true : false; 
   }
 }
 

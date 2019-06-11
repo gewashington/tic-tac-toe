@@ -4,8 +4,13 @@
 // console.log('Hi ' + userName + '!');
 var Game = require('./Game');
 
-let ticTacToe = new Game();
-ticTacToe.play();
-ticTacToe.takeTurns();
 
+function runGame() {
+    let ticTacToe = new Game();
+    ticTacToe.play();
+    ticTacToe.takeTurns();
+    ticTacToe.replay() && runGame();
+}
+
+runGame();
 
