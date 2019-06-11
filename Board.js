@@ -21,10 +21,13 @@ class Board {
     /* 
     - Check if valid input
     - Check if the input has not been used already
-    - Else, continue with 'makeMove
     */
+
+    let isSpotAvailable = this.boardGrid.map((row) => {
+      return row.includes(parseInt(playerInput))
+    }).some((val) => val === true);
     let numberInputRegex = new RegExp(/^[1-9]$/)
-    return numberInputRegex.test(parseInt(playerInput));
+    return numberInputRegex.test(parseInt(playerInput)) && isSpotAvailable;
   }
 
   makeMove(playerInput, playerSymbol) {
