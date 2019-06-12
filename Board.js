@@ -43,7 +43,7 @@ class Board {
       if(row.includes(parseInt(input))) {
         let inputIndex = row.indexOf(parseInt(input))
         this.boardGrid[index][inputIndex] = playerSymbol;
-        console.log(this.boardGrid)
+        this.displayBoard();
       }
     })
   }
