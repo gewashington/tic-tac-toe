@@ -58,7 +58,7 @@ class Game {
       console.log(`${this.getCurrentPlayer().name} wins`)
       return true
     } 
-    
+
     else {
       this.turnsRemaining -= 1;
       this.currentPlayer = !this.currentPlayer;

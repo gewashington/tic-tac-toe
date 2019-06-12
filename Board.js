@@ -14,7 +14,7 @@ class Board {
   }
 
   displayBoard() {
-    console.log('Board Grid', this.boardGrid);
+    console.log('Board', this.boardGrid);
   }
 
   isValidMove(playerInput) {
@@ -22,12 +22,12 @@ class Board {
     - Check if valid input
     - Check if the input has not been used already
     */
-
+    let parsedPlayerInput = parseInt(playerInput);
     let isSpotAvailable = this.boardGrid.map((row) => {
-      return row.includes(parseInt(playerInput))
+      return row.includes(parsedPlayerInput)
     }).some((val) => val === true);
-    let numberInputRegex = new RegExp(/^[1-9]$/)
-    return numberInputRegex.test(parseInt(playerInput)) && isSpotAvailable;
+    let isInputNumberRegex = new RegExp(/^[1-9]$/)
+    return isInputNumberRegex.test(parsedPlayerInput) && isSpotAvailable;
   }
 
   makeMove(playerInput, playerSymbol) {
@@ -46,10 +46,6 @@ class Board {
         console.log(this.boardGrid)
       }
     })
-  }
-
-  isDraw() {
-    return this.boardGrid.forEach((row) => row.some(isNaN));
   }
 
   isWin() {
