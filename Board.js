@@ -1,9 +1,10 @@
+/*
+TODO: 
+ - extract function that gets columns (group numbers by index)
+ - Display a nice tic-tac-toe board 
+*/ 
+
 var readlineSync = require('readline-sync');
-function createBoard() {
-  let playerOne = new HumanPlayer();
-  let playerTwo = new HumanPlayer();
-  return new Board(playerOne, playerTwo);
-}
 
 class Board {
   constructor(playerOne, playerTwo) {
@@ -34,7 +35,7 @@ class Board {
     //Take player input and replace spot on board with x or o based on input 
     let input = playerInput;
     while(!this.isValidMove(input)) {
-      input = readlineSync.question(`Please enter a number from 1-9`)
+      input = readlineSync.question(`Please enter a number on the board that hasn't been used`)
       if(this.isValidMove(input)) {
         break
       }
@@ -53,8 +54,8 @@ class Board {
   }
 
   isVerticalWin() {
-    let column = [];
     let columnValuesMatch = false;
+    let column = [];
     let currentBoard = this.boardGrid;
     for (let i = 0; i < currentBoard.length; i++) {
       currentBoard.map((row) => {
