@@ -15,7 +15,12 @@ class Board {
   }
 
   displayBoard() {
-    console.log('Board', this.boardGrid);
+    this.boardGrid.forEach((row, index) => {
+      console.log(row.join(' | '))
+      if (index !== this.boardGrid.length - 1) {
+        console.log('----------');
+      }
+    });
   }
 
   isValidMove(playerInput) {
