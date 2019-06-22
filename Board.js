@@ -1,7 +1,7 @@
 /*
 TODO: 
- - extract function that gets columns (group numbers by index)
- - Display a nice tic-tac-toe board 
+- extract function that gets columns (group numbers by index)
+- Display a nice tic-tac-toe board 
 */ 
 
 var readlineSync = require('readline-sync');

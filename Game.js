@@ -9,6 +9,7 @@ class Game {
     this.board = '';
     this.turnsRemaining = 9;
     this.currentPlayer = true;
+    this.useHumanOrAi = ''
   }
   
   getPlayerOne() {
@@ -23,11 +24,21 @@ class Game {
     this.playerTwo.playerSymbol = 'o'
   }
 
+  useComputerPlayer() {
+    //set player two as AI
+  }
+
   play() {
     //start prompt for game 
     console.log("Welcome to tic tac toe!")
-    this.getPlayerOne();
-    this.getPlayerTwo();
+    this.useHumanOrAi = readlineSync.question('Would you like to play against a friend (1)  or a computer(2)?');
+    if (this.useHumanOrAi == 1) {
+      this.getPlayerOne();
+      this.getPlayerTwo();
+    }
+    else {
+      this.useComputerPlayer();
+    }
     this.board = new Board;
     this.board.displayBoard();
   }
